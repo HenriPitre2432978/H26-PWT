@@ -1,0 +1,82 @@
+<!doctype html> 
+<html lang="fr"> 
+	<head> 
+		<meta charset="utf-8"> 
+		<title>TP3 - jQuery & jQuery UI</title> 
+		<link rel="shortcut icon" href="https://jquery.com/jquery-wp-content/themes/jquery.com/i/favicon.ico">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/ui-lightness/jquery-ui.min.css">
+		<link rel="stylesheet" href="css/style.css">
+	</head> 
+
+	<body> 
+		<div id="main">  
+			<h2>TP3 - jQuery & jQuery UI</h2>
+			<div id="forme">
+				<div class="rectangle" id="yellow"></div>
+				<div class="rectangle" id="blue"></div>
+				<div class="rectangle" id="red"></div>
+				<div class="rectangle" id="green"></div>
+				<br class="clear" />
+			</div>
+			
+			<br />
+			<div id="checkbox">
+				<input type="checkbox" id="radjaune" name="radio" value="yellow" checked="checked"><label for="radjaune">Jaune</label>
+				<input type="checkbox" id="radbleu" name="radio" value="blue" checked="checked"><label for="radbleu">Bleu</label>
+				<input type="checkbox" id="radrouge" name="radio" value="red" checked="checked"><label for="radrouge">Rouge</label>
+				<input type="checkbox" id="radvert" name="radio" value="green"><label for="radvert">Vert</label>
+			</div>
+			
+			<br />
+			<div id="largeur">
+				<div id="slider" title="Vous pouvez modifier la largeur des blocs."></div>&nbsp;&nbsp;&nbsp;
+				<label>140px</label>
+				<button id="resetSlider">Reset largeur</button>
+				<br class="clear" />
+			</div>
+			
+			<br /><br />
+			<div id="message">
+				<div id="dialog" title="Message important">
+					<p>Possit remuneratione vestitu studiorum benevolentiae nihil ut praedito.</p>
+				</div>
+				<button>Afficher un message "modal"</button>
+			</div>
+			
+			<br />
+			<div id="paragraphe">
+				<p>Tu autem, Fanni, quod mihi tantum tribui dicis quantum ego nec adgnosco postulo.</p>
+				<p>Tu autem, Fanni, quod mihi tantum tribui dicis quantum ego nec adgnosco postulo.</p>
+				<button id="add">Ajouter une ligne</button>
+				<button id="del">Effacer une ligne</button>
+			</div>
+			
+			<br /><br />
+			<div id="animation">
+				<button>Démarrer l'animation</button>
+			</div>
+			
+			<br /><br />
+			<div id="ajax">
+				<button>jQuery c'est...</button>
+				<br /><br />
+				<div id="reponse"></div>
+			</div>
+			
+			<br />
+			<div>
+				Date : <input type="text" id="datepicker">
+			</div>
+			
+			<br />
+			<div>
+				Valeur : <input type="text" id="spinner">
+			</div>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+		<script src="js/i18n/datepicker-fr.js"></script>
+		<script src="js/script.js"></script> <!--Inclure le fichier script de jquery -->
+	</body> 
+</html>

@@ -1,0 +1,58 @@
+body {
+	color: blue;
+}
+
+.clear {
+	clear: both;
+}
+
+div#main {
+	width: 605px;
+	margin: auto;
+}
+
+div.rectangle {
+	border: 1px solid;
+	float: left;
+	margin-right: 11px;
+	height: 70px;
+	width: 140px;
+}
+
+div.rectangle:last-of-type {
+	margin-right: 0px;
+}
+
+div.carre {
+	height: 140px;
+}
+
+div#yellow {
+	background-color: yellow;
+}
+
+div#blue {
+	background-color: blue;
+}
+
+div#red {
+	background-color: red;
+}
+
+div#green {
+	background-color: green;
+}
+
+div#slider {
+	float: left;
+	width: 325px;
+}
+
+div#paragraphe {
+	text-align: justify;
+	width: 600px;
+}
+
+#animation button {
+    position: relative;
+}

@@ -21,4 +21,11 @@
 		<prix>2796$ CAD</prix>
 		<image>pleine_lune.jpg</image>
 	</peinture>
+	<peinture>
+		<code>perso</code>
+		<titre>Homme en Or</titre>
+		<artiste>Sa page Facebook</artiste>
+		<prix>6767$ CAD</prix>
+		<image>perso.png</image>
+	</peinture>
 </collection>

@@ -1,0 +1,9 @@
+/*
+Contient les attributs CSS de vos pages web.
+*/
+
+@font-face {
+    font-family: 'DauphinPlain';
+    src: url('fonts/dauphinn.ttf');
+}
+

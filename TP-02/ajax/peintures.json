@@ -1,25 +1,32 @@
 {
-	"peinture": [
+	"peintures": [
 	  {
 		"code": "chat",
 		"titre": "Le chat gris",
 		"artiste": "Louise Lauzon",
 		"prix": "1479$ CAD",
-		"image": "chat_gris.jpg"
+		"image": "img/chat_gris.jpg"
 	  },
 	  {
 		"code": "fleuve",
 		"titre": "Vue sur le fleuve",
 		"artiste": "Gil Robitail",
 		"prix": "1087$ CAD",
-		"image": "vue_fleuve.jpg"
+		"image": "img/vue_fleuve.jpg"
 	  },
 	  {
 		"code": "lune",
 		"titre": "C'est la pleine lune cette nuit",
 		"artiste": "Guy Paquet",
 		"prix": "2796$ CAD",
-		"image": "pleine_lune.jpg"
+		"image": "img/pleine_lune.jpg"
+	  },
+	  {
+		"code": "perso",
+		"titre": "Homme en Or",
+		"artiste": "Sa page Facebook",
+		"prix": "6767$ CAD",
+		"image": "img/perso.png"
 	  }
 	]
 }

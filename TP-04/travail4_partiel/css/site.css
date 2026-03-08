@@ -7,3 +7,14 @@ Contient les attributs CSS de vos pages web.
     src: url('fonts/dauphinn.ttf');
 }
 
+.card-text {
+    text-align: justify;
+    height: 120px;
+    overflow: hidden;
+}
+
+#myCarousel .carousel-item img {
+  width: 100%;          /* full width */
+  height: 500px;        /* fixed height, adjust as needed */
+  object-fit: cover;    /* crop images to fill without distortion */
+}

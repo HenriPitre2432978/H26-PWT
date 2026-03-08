@@ -53,7 +53,7 @@ class="fixed-top" = fixe la navbar en haut de l’écran en permanence.
         <li class="nav-item">
 
           <!--active = indique que c’est la page actuelle-->
-          <a class="nav-link active">
+          <a class="nav-link active" href="index.php">
 
             <!-- 
             fa-solid = style Font Awesome
@@ -66,14 +66,14 @@ class="fixed-top" = fixe la navbar en haut de l’écran en permanence.
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="products.php">
             <i class="fa-solid fa-box me-1"></i>
             Nos produits
           </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="contactus.php">
             <i class="fa-solid fa-envelope me-1"></i>
             Nous joindre
           </a>

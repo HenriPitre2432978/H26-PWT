@@ -1,3 +1,14 @@
 /*
 Contient les attributs CSS qui "override" le comportement par défaut de Bootstrap.
 */
+.sidebar-banner{
+    width:80%;
+    height:150px;
+    object-fit:cover;
+}
+
+.card-text {
+    text-align: justify;
+    height: 120px;
+    overflow: hidden;
+}

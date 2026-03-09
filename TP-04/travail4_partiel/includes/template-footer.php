@@ -1,7 +1,4 @@
 <!-- Pied de page du site 
-    bg-dark = fond sombre 
-    text-white = texte blanc pour contraste 
-    text-center = centre tout le contenu 
     py-4 = padding vertical (haut et bas) -->
 <footer class="bg-dark text-white text-center py-4">
 
@@ -13,10 +10,7 @@
     <div class="mb-3">
 
       <!-- Bouton Facebook -->
-      <!-- btn = style bouton Bootstrap -->
-      <!-- btn-primary = couleur du bouton -->
-      <!-- mx-1 = petite marge gauche/droite entre boutons -->
-      <!-- role="button" = indique qu’il agit comme bouton -->
+      <!-- mx-1 =  marge de 1 gauche/droite entre boutons -->
       <a class="btn btn-primary mx-1" href="https://facebook.com" role="button">
         <!-- fab = icône Font Awesome brand -->
         <!-- fa-facebook-f = icône Facebook -->

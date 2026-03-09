@@ -33,7 +33,7 @@ $categoryImages = [
 ];
 
 // Get image for selected category by ID
-$bannerImage = 'img-upload/' . $categoryImages[$selectedCategory->id];
+$bannerImage = 'img-upload/'. $categoryImages[$selectedCategory->id];
 
 // Optional: fallback if the file doesn't exist
 if (!file_exists($bannerImage)) {
@@ -41,35 +41,61 @@ if (!file_exists($bannerImage)) {
 }
 ?>
 
+<!-- PAGE HEADER -->
+<div class="container mt-5 pt-4">
+
+    <div class="bg-light text-center p-5 rounded mb-4">
+
+        <img src='img/cars.jpg'
+             class="img-fluid rounded mb-3"
+             style="max-height:250px; object-fit:cover; width:100%;">
+
+    </div>
+
+    <h4 class="text-center mb-4">
+        Nos produits classés par catégorie
+    </h4>
+
+</div>
+
 <div class="container">
-    <div class="row">
-        <!-- Categories buttons -->
-        <div class="col-lg-3 col-md-12 mb-3">
+<div class="row">
 
-            <!-- Category banner image atop buttons -->
-             <div class="mb-3">
-        <img src="img-upload/<?= htmlspecialchars($categoryImages[$selectedCatId] ?? 'cars.jpg') ?>" 
-             class="img-fluid rounded sidebar-banner" 
-             alt="Category Banner">
-    </div>
+<!-- LEFT COLUMN -->
+<div class="col-lg-3 col-md-12 mb-3">
+
+<!-- Category image -->
+<div class="mb-3">
+<img src="<?= $bannerImage ?>"
+class="img-fluid rounded sidebar-banner">
+</div>
+
+<!-- Category buttons -->
+<?php foreach ($categories as $cat) : ?>
+
+<button 
+class="btn btn-outline-primary w-100 mb-2 category-btn <?= ($cat->id == $selectedCatId) ? 'active' : '' ?>"
+data-catid="<?= $cat->id ?>">
+
+<?= htmlspecialchars($cat->name) ?>
+
+</button>
+
+<?php endforeach; ?>
+
+</div>
 
 
-            <?php foreach ($categories as $cat) : ?>
-                <button 
-                    class="btn btn-outline-primary w-100 mb-2 category-btn <?= ($cat->id == $selectedCatId) ? 'active' : '' ?>" 
-                    data-catid="<?= $cat->id ?>">
-                    <?= htmlspecialchars($cat->name) ?>
-                </button>
-            <?php endforeach; ?>
-        </div>
+<!-- RIGHT COLUMN -->
+<div class="col-lg-9 col-md-12">
 
-        <!-- Products table -->
-        <div class="col-lg-9 col-md-12">
-            <div id="products-container">
-                <!-- AJAX will load products here -->
-            </div>
-        </div>
-    </div>
+<div id="products-container">
+<!-- AJAX loads products  -->
+</div>
+
+</div>
+
+</div>
 </div>
 
 <?php

@@ -6,8 +6,8 @@ class CategoryFactory extends FactoryBase
 {
     public function getAll()
     {
-        $db = $this->dbConnect();
-        $stmt = $db->query("SELECT * FROM tp4_categories"); // adjust table name
+        $db = $this->dbConnect(); //connect using factorybase
+        $stmt = $db->query("SELECT * FROM tp4_categories");
 
         $categories = [];
 

@@ -1,5 +1,4 @@
 <?php
-https://chatgpt.com/share/69acd2f2-4fa4-8008-918e-4a710b085279
 ob_start();
 
 // charge la classe CategoryFactory
@@ -16,7 +15,7 @@ include("includes/index-carousel.php");
 <div class="container mt-4">
 
   <div class="row">
-
+    <!-- Texte + image (formatté) -->
     <div class="col-lg-8 col-md-12">
       <h2 style="font-family: 'Comic Sans MS', cursive, sans-serif; color: #ff4500; margin-bottom: 20px;">
         🚗 Fun Fact About Cars Figurines!
@@ -33,7 +32,7 @@ include("includes/index-carousel.php");
     </div>
 
     <div class="col-lg-4 col-md-12 text-center">
-      <img src="img/cars.jpg" class="img-fluid rounded" style="max-width:450px;" alt="Disney Cars Figurines">
+      <img src="img/cars.jpg" class="img-fluid rounded" style="max-width:450px;">
     </div>
 
   </div>
@@ -50,21 +49,19 @@ include("includes/index-cards.php");
 ?>
 
 <?php
-// Dynamic content
-$jumbotron_title = "Welcome to the Collectible Cars! 🚗✨";
+//chatgpt a fait le texte
 $jumbotron_text = "
 <p>Every <strong>Disney Cars</strong> figurine is crafted with incredible detail. From Lightning McQueen’s signature decals to Mater’s quirky expressions, each model is a miniature work of art. 🎨</p>
 <p>Rare 'chase' versions and limited editions add thrill to every collector's hunt. Some early 2006 figurines are now valued at hundreds of dollars online! 💰</p>
 <p>Whether you're a casual fan or a dedicated collector, our gallery showcases the best of Radiator Springs and beyond. Dive into our collection and find your favorite hero today! 🏁</p>
 <p>Stay tuned for new arrivals, exclusive editions, and fun collector tips!</p>
 ";
-$jumbotron_image = "img/cars-banner.jpg";
 ?>
 
 <!-- Single-column Jumbotron -->
 <div class="container-fluid bg-primary text-white py-5 my-4 rounded">
   <div class="container text-center">
-    <h1 class="display-4 fw-bold mb-4"><?= $jumbotron_title ?></h1>
+    <h1 class="display-4 fw-bold mb-4">Welcome to the Collectible Cars!</h1>
 
     <!-- Continuous text -->
    <div class="lead text-center" style="max-width: 900px; margin: 0 auto;">

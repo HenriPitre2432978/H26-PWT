@@ -38,6 +38,7 @@ $(document).ready(function() {
 
         // Load products + banner
         loadProducts(catid);
+        history.replaceState(null, null, "?catid=" + catid);
     });
 });
 </script>

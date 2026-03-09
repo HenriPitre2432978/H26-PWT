@@ -2,14 +2,17 @@
   <div class="row">
     <?php foreach($categories as $cat) { ?>
       <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-        <div class="card h-100">
+        <div class="card h-100">          
           <img src="img-upload/<?= $cat->image ?>" class="card-img-top">
+
           <div class="card-body">
+            
             <h5 class="card-title"><?= $cat->name ?></h5>
             <p class="card-text"><?= $cat->description ?></p>
+
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal<?= $cat->id ?>">
-  <i class="fa-solid fa-circle-info"></i> En savoir plus
-</button>
+              <i class="fa-solid fa-circle-info"></i> En savoir plus
+            </button>
           </div>
         </div>
       </div>

@@ -1,0 +1,41 @@
+﻿@model ReservationWeb.Models.MenuChoice
+
+@{
+    ViewData["Title"] = "Supprimer un choix de menu";
+}
+
+<h1 class="mb-4 text-danger">
+    <i class="fa-solid fa-triangle-exclamation"></i> Supprimer
+</h1>
+
+<div class="card shadow-sm border-danger">
+    <div class="card-body">
+
+        <h5 class="card-title">Confirmation</h5>
+
+        <p class="mb-3">
+            Êtes-vous certain de vouloir supprimer ce choix de menu ?
+        </p>
+
+        <div class="alert alert-light border">
+            <strong>Description :</strong> @Model.Description
+        </div>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="d-flex justify-content-between">
+                <a asp-action="List" class="btn btn-secondary">
+                    <i class="fa-solid fa-arrow-left"></i> Retour
+                </a>
+
+                <!--Voir site.css for btn-danger-->
+                <button type="submit" class="btn btn-danger">
+                    <i class="fa-solid fa-trash"></i> Supprimer
+                </button>
+
+            </div>
+        </form>
+
+    </div>
+</div>

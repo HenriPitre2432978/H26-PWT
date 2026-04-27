@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ReservationWeb.Models.MenuChoice>
+
+@{
+    ViewData["Title"] = "Liste des choix de menu";
+}
+
+<!--Entête-->
+<h1>Liste des choix de menu</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <!-- Foreach object in the list -->
+        @foreach (MenuChoice item in Model)
+        {
+            <tr>
+                <td>@item.Description</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" title="Modifier">
+                        <i class="fa fa-pen"></i>
+                    </a>
+
+                    <a asp-action="Delete" asp-route-id="@item.Id" title="Supprimer">
+                        <i class="fa fa-trash text-danger"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!--link Go to CreateEdit view inside Admin area-->
+<a asp-area="Admin" asp-controller="MenuChoice" asp-action="Create" class="btn btn-primary mb-3">
+    Ajouter un choix
+</a>
+

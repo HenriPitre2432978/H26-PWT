@@ -1,0 +1,47 @@
+﻿@model ReservationWeb.Models.MenuChoice
+
+@{
+    bool isEdit = ViewBag.IsEdit ?? false;
+
+    ViewData["Title"] = isEdit ? "Modifier un choix" : "Ajouter un choix";
+}
+
+<h1 class="mb-4">@ViewData["Title"]</h1>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        <!-- Use the same view for Edit and Create form, depending on which Viewbag mode it's on' -->
+        <form asp-action="@(isEdit ? "Edit" : "Create")" method="post">
+
+            @if (isEdit)
+            {
+                <input type="hidden" asp-for="Id" />
+            }
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
+
+                <!-- placeholder = example input in textbox -->
+                <input asp-for="Description" maxlength="30" class="form-control" autofocus placeholder="Ex: Pizza, Steak..." />
+
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="d-flex justify-content-between mt-4">
+
+                <a asp-action="List" class="btn btn-outline-secondary">
+                    ⬅️ Retour à la liste
+                </a>
+
+                <button type="submit" class="btn btn-success">
+                    @(isEdit ? "Modifier" : "Ajouter")
+                </button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Scripts requis pour générer automatiquement le code JavaScript de validation des formulaires MVC -->
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

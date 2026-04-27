@@ -1,0 +1,70 @@
+﻿@model ReservationWeb.ViewModels.ReservationDetailsVM
+
+@{
+    ViewData["Title"] = "Confirmation";
+}
+
+<div class="row align-items-center">
+
+    <!-- IMAGE confirmation -->
+    <div class="col-md-6 d-none d-md-block">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5"
+             class="img-fluid rounded shadow" />
+    </div>
+
+    <!-- CONFIRMATION -->
+    <div class="col-md-6">
+        <div class="card shadow-lg border-0">
+
+            <div class="card-body">
+
+                <h2 class="text-success mb-4 text-center">
+                    <i class="fa-solid fa-circle-check"></i>
+                    Réservation confirmée
+                </h2>
+
+                <div class="alert alert-success text-center">
+                    Merci pour votre réservation !
+                </div>
+
+                <!--List all reservation details-->
+                <ul class="list-group mb-4">
+
+                    <li class="list-group-item">
+                        <strong>Nom :</strong>
+                        @Model.Reservation.Nom
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>Courriel :</strong>
+                        @Model.Reservation.Courriel
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>Nombre de personnes :</strong>
+                        @Model.Reservation.NbPersonne
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>Date :</strong>
+                        @Model.Reservation.DateReservation.ToString("yyyy-MM-dd")
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>Menu :</strong>
+                        @Model.MenuDescription
+                    </li>
+
+                </ul>
+
+                <!--Go back (home)-->
+                <a asp-controller="Home" asp-action="Index"
+                   class="btn btn-primary w-100">
+                    <i class="fa-solid fa-house"></i>
+                    Retour à l'accueil
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>

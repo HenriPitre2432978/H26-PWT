@@ -1,0 +1,8 @@
+.container-fluid {
+    max-width: 1200px;
+}
+
+/*Make card border of Supprimer confirmation page in red*/
+.card.border-danger {
+    border-width: 2px;
+}

@@ -1,0 +1,132 @@
+﻿@model ReservationWeb.ViewModels.HomeReservationVM
+
+@{
+    ViewData["Title"] = "Réserver une table";
+}
+
+<div class="row align-items-center">
+
+    <!-- IMAGE (cachée mobile) -->
+    <div class="col-md-6 d-none d-md-block">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0"
+             class="img-fluid rounded shadow" />
+    </div>
+
+    <!-- FORM -->
+    <div class="col-md-6">
+        <div class="card shadow-lg border-0">
+            <div class="card-body">
+
+                <!-- Titre-->
+                <h2 class="mb-4 text-center">
+                    <i class="fa-solid fa-utensils"></i> Réservation
+                </h2>
+
+                <!--Home = réserver -->
+                <form asp-action="Index" method="post">
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Nom"></label>
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                <i class="fa-regular fa-address-card"></i>
+                            </span>
+                            <input asp-for="Nom" maxlength="20" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Nom" class="text-danger"></span>
+                    </div>
+
+                    <!-- EMAIL input-group -->
+                    <div class="form-group mb-3">
+                        <label asp-for="Courriel"></label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-envelope"></i>
+                            </span>
+                            <input asp-for="Courriel" maxlength="50" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Courriel" class="text-danger"></span>
+                    </div>
+
+                    <!-- SPINNER -->
+                    <div class="form-group mb-3">
+                        <label asp-for="NbPersonnes">Nombre de personnes</label>
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-people-group"></i>
+                            </span>
+                            <input asp-for="NbPersonnes" id="spinner" class="form-control" />
+
+                        </div>
+                        <span asp-validation-for="NbPersonnes" class="text-danger"></span>
+                    </div>
+
+                    <!-- DATE HEURE (html)-->
+                    <div class="form-group mb-3">
+                        <label asp-for="DateReservation">Date et heure</label>
+
+                        <div class="input-group">
+
+                            <!-- Icône calendrier-->
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-calendar"></i>
+                            </span>
+
+                            <input asp-for="DateReservation"
+                                   id="datetimepicker"
+                                   type="text"
+                                   class="form-control" />
+                        </div>
+
+                        <span asp-validation-for="DateReservation" class="text-danger"></span>
+                    </div>
+
+                    <!-- MENU -->
+                    <div class="form-group mb-4">
+                        <label asp-for="ChoixMenu">Choix du menu</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-utensils"></i>
+                            </span>
+                            <select asp-for="ChoixMenu" class="form-control"
+                                    asp-items="@(new SelectList(Model.MenuChoices, "Id", "Description"))">
+
+                                <!--Ssample text-->
+                                <option value="">-- Choisir --</option>
+                            </select>
+                        </div>
+
+
+                        <span asp-validation-for="ChoixMenu" class="text-danger"></span>
+                    </div>
+
+                    <!--Confirmer -->
+                    <button class="btn btn-primary w-100 btn-lg">
+                        <i class="fa-solid fa-check"></i> Réserver
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+
+    <!--Flatpickr pour l'interface de la date et l'heure-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!--Logique javascript dans site.js-->
+    <script src="~/js/site.js"></script>
+}

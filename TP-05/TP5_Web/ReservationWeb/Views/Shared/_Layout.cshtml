@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RESERVATION WEB (2432978)</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="~/css/site-bootstrap.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ReservationWeb.styles.css" asp-append-version="true" />
+
+    <!--
+        Section qui permet d'ajouter du contenu dans <head> depuis les vues qui utilisent ce layout.'
+            Voir vue Contact/Index.cshtml pour exemple
+    -->
+    @await RenderSectionAsync("Links", required: false)
+</head>
+<body>
+    <header>
+
+
+        <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+            <div class="container-fluid">
+
+                <!--  Titre + Home icon-->
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    RÉSERVATIONS EN LIGNE
+                </a>
+
+                <!--Rediriger vers la page Admin-->
+                <a class="nav-link text-white ms-2" asp-area="Admin" asp-controller="Home" asp-action="Index">
+                    Administration
+                </a>
+
+
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Bottom footer (copyright) -->
+    <div class="container-fluid text-center py-3">
+        <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
+
+            <!--Copyright-->
+            <span>&copy; 2026 - ReservationWeb (Henri Pitre, 2432978)</span>
+
+            <!--Lien admin-->
+            <a asp-area="Admin" asp-controller="Home" asp-action="Index">
+                Administration
+            </a>
+
+        </div>
+    </div>
+
+    <!-- Placé à la fin du document pour un chargement plus rapide des pages-->
+    <!-- Ordre jQuery, Popper.js, puis Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!--
+    Section qui permet d'ajouter du JavaScript à partir d'une vue
+    Voir la vue Contact/Index.cshtml pour un exemple.
+    -->
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

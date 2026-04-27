@@ -1,0 +1,43 @@
+﻿@model ReservationWeb.Models.Reservation
+
+@{
+    ViewData["Title"] = "Supprimer réservation";
+}
+
+<h1 class="text-danger mb-4">
+    <i class="fa-solid fa-triangle-exclamation"></i> Supprimer
+</h1>
+
+<div class="card shadow border-danger">
+    <div class="card-body">
+
+        <div class="alert alert-danger">
+            Cette action est irréversible.
+        </div>
+
+        <!-- Components to display in the list-->
+        <ul class="list-group mb-3">
+            <li class="list-group-item"><strong>Nom :</strong> @Model.Nom</li>
+            <li class="list-group-item"><strong>Email :</strong> @Model.Courriel</li>
+            <li class="list-group-item"><strong>Personnes :</strong> @Model.NbPersonne</li>
+            <li class="list-group-item"><strong>Date :</strong> @Model.DateReservation</li>
+        </ul>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <!--Go back to reservation list-->
+            <div class="d-flex justify-content-between">
+                <a asp-action="List" class="btn btn-secondary">
+                    Retour
+                </a>
+
+                <!--Voir site.css for btn-danger-->
+                <button type="submit" class="btn btn-danger">
+                    Supprimer
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>

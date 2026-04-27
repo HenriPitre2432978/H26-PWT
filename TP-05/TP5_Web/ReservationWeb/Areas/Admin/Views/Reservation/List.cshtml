@@ -1,0 +1,51 @@
+﻿@model List<ReservationWeb.Models.Reservation>
+
+@{
+    ViewData["Title"] = "Liste des réservations";
+}
+
+<h1 class="mb-4">
+    <i class="fa-solid fa-calendar"></i> Réservations
+</h1>
+
+<table class="table table-hover shadow-sm">
+    <thead class="table-dark">
+        <!-- Components to input for the model-->
+        <tr>
+            <th>Nom</th>
+            <th class="d-none d-md-table-cell">Courriel</th>
+            <th>Personnes</th>
+            <th>Date</th>
+            <th class="d-none d-sm-table-cell">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Foreach object in the list -->
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.Nom</td>
+                <td class="d-none d-md-table-cell">@r.Courriel</td>
+                <td>@r.NbPersonne</td>
+                <td>@r.DateReservation.ToShortDateString()</td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@r.Id"
+                       class="btn btn-sm btn-danger"
+                       data-toggle="tooltip"
+                       title="Supprimer">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- toggle tooltips -->
+@section Scripts {
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+}

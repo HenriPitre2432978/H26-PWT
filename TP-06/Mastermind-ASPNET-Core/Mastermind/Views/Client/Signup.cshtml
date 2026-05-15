@@ -1,0 +1,83 @@
+﻿@model SignupVM
+
+@{
+    ViewData["Title"] = Resource.Signup;
+}
+
+<div id="signup-page">
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <img src="~/img/mastermind-banner.png"
+                 alt="Mastermind"
+                 class="img-fluid" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+
+            <div class="page-title">
+                <h2>@Resource.Signup</h2>
+            </div>
+
+            <div class="form-section">
+
+                <form asp-action="Signup" asp-controller="Client" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <!-- FullName -->
+                    <div class="form-group mb-3">
+                        <label asp-for="FullName" class="form-label">@Resource.FullName</label>
+                        <input asp-for="FullName" class="form-control" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group mb-3">
+                        <label asp-for="Email" class="form-label">@Resource.Email</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <!-- Username -->
+                    <div class="form-group mb-3">
+                        <label asp-for="Username" class="form-label">@Resource.Username</label>
+                        <input asp-for="Username" class="form-control" />
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group mb-3">
+                        <label asp-for="Password" class="form-label">@Resource.Password</label>
+                        <input asp-for="Password" type="password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="form-group mb-4">
+                        <label asp-for="ConfirmPassword" class="form-label">@Resource.ConfirmPassword</label>
+                        <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">
+                            @Resource.Signup
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -8,7 +8,7 @@
             PlayerWin,
             Running
         }
-
+        public bool StatisticsSaved { get; set; } = false;
         public int NbColors { get; set; }
         public int NbPositions { get; set; }
         public int NbAttempts { get; set; }
@@ -31,7 +31,7 @@
                 ComputerRow.PawnColors.Add(rnd.Next(1, NbColors + 1));
             }
         }
-        
+
         public void Validate(PlayerRow playerRow)
         {
             if (State == GameState.Running)

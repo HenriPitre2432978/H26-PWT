@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mastermind.Models
 {
@@ -40,6 +41,8 @@ namespace Mastermind.Models
         [StringLength(100, ErrorMessage = "Maximum 100 caractères")]
         public string ImagePath { get; set; } = string.Empty;
 
+        [NotMapped]
+        public IFormFile? ImageFile { get; set; }
         public Member()
         {
         }

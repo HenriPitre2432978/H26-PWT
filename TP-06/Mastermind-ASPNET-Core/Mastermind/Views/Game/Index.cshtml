@@ -22,11 +22,18 @@
             <div class="your-stats">
                 <h3>@Resource.StatsTitle</h3>
                 <p>
-                    @Resource.GamesWon : 20<br />
-                    @Resource.GamesLost : 70<br />
-                    @Resource.GamesAbandoned : 3<br />
-                    @Resource.BestScore : 5<br />
-                    @Resource.AverageScore: 9,7
+                    @Resource.GamesWon :
+                    @(Model.Stats?.GamesWon ?? 0)
+
+                    <br />
+
+                    @Resource.GamesLost :
+                    @(Model.Stats?.GamesLost ?? 0)
+
+                    <br />
+
+                    @Resource.BestScore :
+                    @(Model.Stats?.BestPerformance ?? 0)
                 </p>
                 <div id="piechart" class="chart"></div>
             </div>
@@ -46,9 +53,8 @@
         function drawPieChart() {
             var data = google.visualization.arrayToDataTable([
                 ['@Resource.Result', '@Resource.Quantity'],
-                ['@Resource.GamesWon', 20],
-                ['@Resource.GamesLost', 70],
-                ['@Resource.GamesAbandoned', 3]
+                ['@Resource.GamesWon',@(Model.Stats?.GamesWon ?? 0)],
+                ['@Resource.GamesLost', @(Model.Stats?.GamesLost ?? 0)],
             ]);
 
             var options = {

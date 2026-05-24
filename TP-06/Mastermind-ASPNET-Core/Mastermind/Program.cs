@@ -24,6 +24,7 @@ namespace Mastermind
     options.LoginPath = "/Client/Login";
     options.LogoutPath = "/Client/Logout";
 });
+            builder.Services.AddAuthorization();
 
             builder.Services.Configure<RequestLocalizationOptions>(options =>
             {
@@ -66,10 +67,6 @@ namespace Mastermind
             {
                 app.UseRequestLocalization(options.Value);
             }
-
-
-
-            builder.Services.AddAuthorization();
 
             app.UseRouting();
 

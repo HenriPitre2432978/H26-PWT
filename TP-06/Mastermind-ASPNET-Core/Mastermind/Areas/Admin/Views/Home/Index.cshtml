@@ -84,10 +84,9 @@
         function drawPieChart() {
 
             var data = google.visualization.arrayToDataTable([
-                ['@Resource.Result', '@Resource.Quantity'],
-                ['@Resource.Won', 20],
-                ['@Resource.Lost', 40],
-                ['@Resource.Abandoned', 10]
+            ['@Resource.Result', '@Resource.Quantity'],
+        ['@Resource.Won', @Model.TotalWins],
+        ['@Resource.Lost', @Model.TotalLosses]
             ]);
 
             var options = {
@@ -97,7 +96,6 @@
                 slices: [
                     { color: 'blue', offset: 0.1 },
                     { color: 'orange', offset: 0.1 },
-                    { color: 'silver' }
                 ],
                 title: '@Resource.GameSummary'
             };

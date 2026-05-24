@@ -4,8 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Mastermind.ViewModels
 {
-    public class SignupVM
+    public class ProfileEditVM
     {
+        public int Id { get; set; }
 
         [Required(
             ErrorMessageResourceName = "FullNameRequired",
@@ -22,6 +23,10 @@ namespace Mastermind.ViewModels
             ErrorMessageResourceName = "EmailRequired",
             ErrorMessageResourceType = typeof(Resource)
         )]
+        [Display(
+            Name = "Email",
+            ResourceType = typeof(Resource)
+        )]
         [EmailAddress]
         [StringLength(50)]
         public string Email { get; set; } = string.Empty;
@@ -36,27 +41,30 @@ namespace Mastermind.ViewModels
         )]
         [StringLength(20)]
         [Remote(
-    action: "VerifySignupUsername",
-    controller: "Client",
-    HttpMethod = "Get",
-    ErrorMessage = "Ce nom d'utilisateur existe déjà."
-)]
+            action: "VerifyProfileUsername",
+            controller: "Client",
+            AdditionalFields = nameof(Id),
+            ErrorMessage = "Ce nom d'utilisateur existe déjà."
+        )]
         public string Username { get; set; } = string.Empty;
 
-        [Required(
-            ErrorMessageResourceName = "PasswordRequired",
-            ErrorMessageResourceType = typeof(Resource)
+        [Display(
+            Name = "Password",
+            ResourceType = typeof(Resource)
         )]
         [DataType(DataType.Password)]
         [StringLength(100, MinimumLength = 6)]
         public string Password { get; set; } = string.Empty;
 
-        [Required(
-            ErrorMessageResourceName = "PasswordRequired",
-            ErrorMessageResourceType = typeof(Resource)
+        [Display(
+            Name = "ConfirmPassword",
+            ResourceType = typeof(Resource)
         )]
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Les mots de passe ne correspondent pas.")]
         public string ConfirmPassword { get; set; } = string.Empty;
+
+        public IFormFile? ImageFile { get; set; }
+        public string? ImagePath { get; set; } = string.Empty;
     }
 }

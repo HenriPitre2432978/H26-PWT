@@ -318,4 +318,7 @@
   <data name="EmailRequired" xml:space="preserve">
     <value>Le courriel est requis</value>
   </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>Modifier le profil</value>
+  </data>
 </root>

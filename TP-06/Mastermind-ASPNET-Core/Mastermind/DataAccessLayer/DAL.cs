@@ -6,6 +6,7 @@ namespace Mastermind.DataAccessLayer
     {
         private ConfigFactory? _configFact;
         private MemberFactory? _memberFact;
+        private MemberStatsFactory? _memberStatsFact;
 
         public static string? ConnectionString { get; set; }
 
@@ -25,6 +26,14 @@ namespace Mastermind.DataAccessLayer
             {
                 _memberFact ??= new MemberFactory();
                 return _memberFact;
+            }
+        }
+        public MemberStatsFactory MemberStatsFact
+        {
+            get
+            {
+                _memberStatsFact ??= new MemberStatsFactory();
+                return _memberStatsFact;
             }
         }
     }

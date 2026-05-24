@@ -1,12 +1,15 @@
-﻿using Mastermind.GameModels;
-using Mastermind.DataAccessLayer;
+﻿using Mastermind.DataAccessLayer;
+using Mastermind.GameModels;
 using Mastermind.Models;
 using Mastermind.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
 namespace Mastermind.Controllers
 {
+
+    [Authorize(Roles = Member.ROLE_STANDARD + "," + Member.ROLE_ADMIN)]
     public class GameController : Controller
     {
         private const string SESSION_GAME_NAME = "CurrentGame";
@@ -37,7 +40,29 @@ namespace Mastermind.Controllers
         public IActionResult Index()
         {
             Game game = CreateOrGetGame();
-            GameVM viewModel = new(game);
+
+            DAL dal = new();
+
+            string? username =
+                User.Identity?.Name;
+
+            MemberStats? stats = null;
+
+            if (!string.IsNullOrWhiteSpace(username))
+            {
+                Member? member =
+                    dal.MemberFact.GetByUsername(username);
+
+                if (member != null)
+                {
+                    stats =
+                        dal.MemberStatsFact
+                            .GetByMemberId(member.Id);
+                }
+            }
+
+            GameVM viewModel =
+                new(game, stats);
 
             return View(viewModel);
         }
@@ -56,15 +81,72 @@ namespace Mastermind.Controllers
                 if (game != null)
                 {
                     PlayerRow playerRow = new();
-                    for (int position = 1; position <= game.NbPositions; position++)
+
+                    for (
+                        int position = 1;
+                        position <= game.NbPositions;
+                        position++
+                    )
                     {
-                        int.TryParse(collection["color-index-" + position], out int color);
-                        playerRow.Pawns.Add(new Pawn { Color = color });
+                        int.TryParse(
+                            collection["color-index-" + position],
+                            out int color
+                        );
+
+                        playerRow.Pawns.Add(
+                            new Pawn { Color = color }
+                        );
                     }
 
                     game.Validate(playerRow);
 
-                    HttpContext.Session.SetString("CurrentGame", JsonSerializer.Serialize(game));
+                    if (
+                        game.State != Game.GameState.Running
+                        && !game.StatisticsSaved
+                    )
+                    {
+                        string? username =
+                            User.Identity?.Name;
+
+                        if (!string.IsNullOrWhiteSpace(username))
+                        {
+                            DAL dal = new();
+
+                            Member? member =
+                                dal.MemberFact
+                                    .GetByUsername(username);
+
+                            if (member != null)
+                            {
+                                if (
+                                    game.State ==
+                                    Game.GameState.PlayerWin
+                                )
+                                {
+                                    dal.MemberStatsFact.RegisterWin(
+                                        member.Id,
+                                        game.PlayerRows.Count
+                                    );
+                                }
+                                else if (
+                                    game.State ==
+                                    Game.GameState.ComputerWin
+                                )
+                                {
+                                    dal.MemberStatsFact.RegisterLoss(
+                                        member.Id
+                                    );
+                                }
+
+                                game.StatisticsSaved = true;
+                            }
+                        }
+                    }
+
+                    HttpContext.Session.SetString(
+                        "CurrentGame",
+                        JsonSerializer.Serialize(game)
+                    );
                 }
             }
 
@@ -72,7 +154,6 @@ namespace Mastermind.Controllers
 
             return PartialView("PartialGame", game);
         }
-
         public IActionResult Replay()
         {
             HttpContext.Session.Remove(SESSION_GAME_NAME);

@@ -8,6 +8,7 @@ namespace Mastermind.Areas.Admin.Controllers
     [Area("Admin")]
     public class HomeController : Controller
     {
+
         public IActionResult Index()
         {
             Dictionary<string, Config> configByKey = new DAL().ConfigFact.GetAll();
@@ -16,7 +17,11 @@ namespace Mastermind.Areas.Admin.Controllers
             int.TryParse(configByKey[Config.NB_POSITIONS].Value, out int nbPositions);
             int.TryParse(configByKey[Config.NB_ATTEMPTS].Value, out int nbAttempts);
 
-            HomeVM viewModel = new(nbColors, nbPositions, nbAttempts);
+            DAL dal = new();
+            int totalWins = dal.MemberStatsFact.GetTotalWins();
+            int totalLosses = dal.MemberStatsFact.GetTotalLosses();
+
+            HomeVM viewModel = new(nbColors, nbPositions, nbAttempts, totalWins, totalLosses);
 
             return View(viewModel);
         }

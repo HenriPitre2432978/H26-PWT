@@ -10,9 +10,11 @@ namespace Mastermind.Areas.Admin.Controllers
     [Authorize(Roles = Member.ROLE_ADMIN)]
     public class MemberController : Controller
     {
+        DAL dal = new();
+
         public IActionResult List()
         {
-            List<Member> list = new DAL().MemberFact.GetAll();
+            List<Member> list = dal.MemberFact.GetAll();
 
             list = list
                 .OrderBy(x => x.Username)
@@ -41,55 +43,44 @@ namespace Mastermind.Areas.Admin.Controllers
                 model.Role = Member.ROLE_STANDARD;
 
             model.ImagePath = model.ImagePath?.Trim() ?? "";
-
             ViewBag.IsEdit = false;
 
-            if (!ModelState.IsValid)
-                return View("CreateEdit", model);
+            if (!ModelState.IsValid) return View("CreateEdit", model);
 
-            if (new DAL().MemberFact.Exists(model.Username))
+            if (dal.MemberFact.Exists(model.Username))
             {
-                ModelState.AddModelError(
-                    "Username",
-                    "Ce nom d'utilisateur existe déjà."
-                );
-
+                ModelState.AddModelError("Username", "Ce nom d'utilisateur existe déjà.");
                 return View("CreateEdit", model);
             }
 
-            model.Password =
-                hasher.HashPassword(model, model.Password);
+            model.Password = hasher.HashPassword(model, model.Password);
+            dal.MemberFact.Insert(model);
 
-            new DAL().MemberFact.Insert(model);
+            Member? inserted = dal.MemberFact.GetByUsername(model.Username);
+
+            if (inserted != null)
+                dal.MemberStatsFact.CreateForMember(inserted.Id);
 
             return RedirectToAction("List");
         }
 
         public JsonResult VerifyUsername(string username)
         {
-            bool exists = new DAL().MemberFact.Exists(username);
+            bool exists = dal.MemberFact.Exists(username);
             return Json(!exists);
         }
 
         public IActionResult Edit(int? id)
         {
             if (id == null)
-                return View(
-                    "~/Views/Shared/Error.cshtml",
-                    "Identifiant invalide."
-                );
+                return View("~/Views/Shared/Error.cshtml", "Identifiant invalide.");
 
-            Member? item =
-                new DAL().MemberFact.Get(id.Value);
+            Member? item = dal.MemberFact.Get(id.Value);
 
             if (item == null)
-                return View(
-                    "~/Views/Shared/Error.cshtml",
-                    "Membre inexistant."
-                );
+                return View("~/Views/Shared/Error.cshtml", "Membre inexistant.");
 
             ViewBag.IsEdit = true;
-
             return View("CreateEdit", item);
         }
 
@@ -100,64 +91,42 @@ namespace Mastermind.Areas.Admin.Controllers
             if (model.Role != Member.ROLE_ADMIN && model.Role != Member.ROLE_STANDARD)
                 model.Role = Member.ROLE_STANDARD;
 
-
             PasswordHasher<Member> hasher = new();
             ViewBag.IsEdit = true;
 
             if (!ModelState.IsValid)
                 return View("CreateEdit", model);
 
-            if (new DAL().MemberFact.ExistsOther(
-                model.Username,
-                model.Id))
+            if (dal.MemberFact.ExistsOther(model.Username, model.Id))
             {
-                ModelState.AddModelError(
-                    "Username",
-                    "Ce nom d'utilisateur existe déjà."
-                );
-
+                ModelState.AddModelError("Username", "Ce nom d'utilisateur existe déjà.");
                 return View("CreateEdit", model);
             }
 
-            Member? existing =
-                new DAL().MemberFact.Get(model.Id);
+            Member? existing = dal.MemberFact.Get(model.Id);
 
             if (existing == null)
-            {
-                return View(
-                    "~/Views/Shared/Error.cshtml",
-                    "Membre inexistant."
-                );
-            }
+                return View("~/Views/Shared/Error.cshtml", "Membre inexistant.");
 
             if (!string.IsNullOrWhiteSpace(model.Password))
                 model.Password = hasher.HashPassword(model, model.Password);
-
             else
                 model.Password = existing.Password;
 
 
-            new DAL().MemberFact.Update(model);
-
+            dal.MemberFact.Update(model);
             return RedirectToAction("List");
         }
 
+        //Non implémenté car non spécifié dans le TP, mais fait dans le factory et controller
         public IActionResult Delete(int? id)
         {
             if (id == null)
-                return View(
-                    "~/Views/Shared/Message.cshtml",
-                    "Aucun identifiant fourni."
-                );
+                return View("~/Views/Shared/Message.cshtml", "Aucun identifiant fourni.");
 
-            Member? member =
-                new DAL().MemberFact.Get(id.Value);
-
+            Member? member = dal.MemberFact.Get(id.Value);
             if (member == null)
-                return View(
-                    "~/Views/Shared/Message.cshtml",
-                    "Membre introuvable."
-                );
+                return View("~/Views/Shared/Message.cshtml", "Membre introuvable.");
 
             return View(member);
         }
@@ -167,18 +136,12 @@ namespace Mastermind.Areas.Admin.Controllers
         public IActionResult Delete(Member model)
         {
             Member? existing =
-                new DAL().MemberFact.Get(model.Id);
+                dal.MemberFact.Get(model.Id);
 
             if (existing == null)
-            {
-                return View(
-                    "~/Views/Shared/Message.cshtml",
-                    "Impossible de supprimer ce membre."
-                );
-            }
+                return View("~/Views/Shared/Message.cshtml", "Impossible de supprimer ce membre.");
 
-            new DAL().MemberFact.Delete(model.Id);
-
+            dal.MemberFact.Delete(model.Id);
             return RedirectToAction("List");
         }
     }

@@ -29,15 +29,13 @@ namespace Mastermind.Areas.Admin.Controllers
             if (viewModel != null)
             {
                 if (!ModelState.IsValid)
-                {
                     return View(viewModel);
-                }
 
                 List<Config> configs = new()
                 {
-                    new Config() { Key = Config.NB_COLORS, Value = viewModel.NbColors.ToString() },
-                    new Config() { Key = Config.NB_POSITIONS, Value = viewModel.NbPositions.ToString() },
-                    new Config() { Key = Config.NB_ATTEMPTS, Value = viewModel.NbAttempts.ToString() }
+                    new(){ Key = Config.NB_COLORS, Value = viewModel.NbColors.ToString() },
+                    new(){ Key = Config.NB_POSITIONS, Value = viewModel.NbPositions.ToString() },
+                    new(){ Key = Config.NB_ATTEMPTS, Value = viewModel.NbAttempts.ToString() }
                 };
 
                 new DAL().ConfigFact.Save(configs);

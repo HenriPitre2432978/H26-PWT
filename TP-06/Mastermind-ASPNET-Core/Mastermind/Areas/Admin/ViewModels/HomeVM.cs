@@ -5,12 +5,16 @@
         public int NbColors { get; set; }
         public int NbPositions { get; set; }
         public int NbAttempts { get; set; }
-
-        public HomeVM(int nbColor, int nbPositions, int nbAttempts)
+        public int TotalWins { get; set; }
+        public int TotalLosses { get; set; }
+        public HomeVM(int nbColor, int nbPositions, int nbAttempts, int totalWins, int totalLosses)
         {
-            NbColors= nbColor;
-            NbPositions= nbPositions;
-            NbAttempts= nbAttempts;
+            NbColors = nbColor;
+            NbPositions = nbPositions;
+            NbAttempts = nbAttempts;
+
+            TotalWins = totalWins;
+            TotalLosses = totalLosses;
         }
     }
 }

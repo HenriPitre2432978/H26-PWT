@@ -196,6 +196,15 @@ namespace Mastermind.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Modifier le profil.
+        /// </summary>
+        public static string EditProfile {
+            get {
+                return ResourceManager.GetString("EditProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Courriel.
         /// </summary>
         public static string Email {

@@ -28,6 +28,7 @@
         </div>
 
     </div>
+
 </div>
 
 @section Scripts
@@ -37,22 +38,29 @@
 
     <script type="text/javascript">
 
-        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.load('current', { packages: ['corechart'] });
 
-        google.charts.setOnLoadCallback(drawBarChart);
-        google.charts.setOnLoadCallback(drawPieChart);
+        // Draw charts once Google Charts is loaded
+        ['drawBarChart', 'drawPieChart']
+            .forEach(callback => google.charts.setOnLoadCallback(window[callback]));
+
+        // Shared chart data
+        const configData = [
+            ["@Resource.Colors", @Model.NbColors, "color: gold"],
+            ["@Resource.Positions", @Model.NbPositions, "color: orange"],
+            ["@Resource.Attempts", @Model.NbAttempts, "color: blue"]
+        ];
 
         function drawBarChart() {
 
-            var data = google.visualization.arrayToDataTable([
+            const data = google.visualization.arrayToDataTable([
                 ["Element", "Value", { role: "style" }],
-                ["@Resource.Colors", @Model.NbColors, "color: gold"],
-                ["@Resource.Positions", @Model.NbPositions, "color: orange"],
-                ["@Resource.Attempts", @Model.NbAttempts, "color: blue"]
+                ...configData
             ]);
 
-            var view = new google.visualization.DataView(data);
+            const view = new google.visualization.DataView(data);
 
+            // Adds value labels above each bar
             view.setColumns([
                 0,
                 1,
@@ -65,7 +73,7 @@
                 2
             ]);
 
-            var options = {
+            const options = {
                 bar: { groupWidth: "95%" },
                 fontSize: 14,
                 legend: { position: "none" },
@@ -73,42 +81,39 @@
                 title: "@Resource.CurrentConfigurations"
             };
 
-            var chart =
-                new google.visualization.BarChart(
-                    document.getElementById("barchart")
-                );
-
-            chart.draw(view, options);
+            new google.visualization.BarChart(
+                document.getElementById("barchart")
+            ).draw(view, options);
         }
 
         function drawPieChart() {
 
-            var data = google.visualization.arrayToDataTable([
-            ['@Resource.Result', '@Resource.Quantity'],
-        ['@Resource.Won', @Model.TotalWins],
-        ['@Resource.Lost', @Model.TotalLosses]
+            const data = google.visualization.arrayToDataTable([
+                ['@Resource.Result', '@Resource.Quantity'],
+                ['@Resource.Won', @Model.TotalWins],
+                ['@Resource.Lost', @Model.TotalLosses]
             ]);
 
-            var options = {
+            const options = {
                 fontSize: 14,
                 is3D: true,
                 responsive: true,
+                title: '@Resource.GameSummary',
+
+                // Highlight slices slightly
                 slices: [
                     { color: 'blue', offset: 0.1 },
-                    { color: 'orange', offset: 0.1 },
-                ],
-                title: '@Resource.GameSummary'
+                    { color: 'orange', offset: 0.1 }
+                ]
             };
 
-            var chart =
-                new google.visualization.PieChart(
-                    document.getElementById('piechart')
-                );
-
-            chart.draw(data, options);
+            new google.visualization.PieChart(
+                document.getElementById('piechart')
+            ).draw(data, options);
         }
 
-        window.onresize = function () {
+        // Redraw charts when window size changes
+        window.onresize = () => {
             drawBarChart();
             drawPieChart();
         };

@@ -12,10 +12,7 @@ namespace Mastermind.ViewModels
             ErrorMessageResourceName = "FullNameRequired",
             ErrorMessageResourceType = typeof(Resource)
         )]
-        [Display(
-            Name = "FullName",
-            ResourceType = typeof(Resource)
-        )]
+        [Display(Name = "FullName", ResourceType = typeof(Resource))]
         [StringLength(20)]
         public string FullName { get; set; } = string.Empty;
 
@@ -23,10 +20,7 @@ namespace Mastermind.ViewModels
             ErrorMessageResourceName = "EmailRequired",
             ErrorMessageResourceType = typeof(Resource)
         )]
-        [Display(
-            Name = "Email",
-            ResourceType = typeof(Resource)
-        )]
+        [Display(Name = "Email", ResourceType = typeof(Resource))]
         [EmailAddress]
         [StringLength(50)]
         public string Email { get; set; } = string.Empty;
@@ -35,10 +29,7 @@ namespace Mastermind.ViewModels
             ErrorMessageResourceName = "UsernameRequired",
             ErrorMessageResourceType = typeof(Resource)
         )]
-        [Display(
-            Name = "Username",
-            ResourceType = typeof(Resource)
-        )]
+        [Display(Name = "Username", ResourceType = typeof(Resource))]
         [StringLength(20)]
         [Remote(
             action: "VerifyProfileUsername",
@@ -48,18 +39,12 @@ namespace Mastermind.ViewModels
         )]
         public string Username { get; set; } = string.Empty;
 
-        [Display(
-            Name = "Password",
-            ResourceType = typeof(Resource)
-        )]
+        [Display(Name = "Password", ResourceType = typeof(Resource))]
         [DataType(DataType.Password)]
         [StringLength(100, MinimumLength = 6)]
         public string Password { get; set; } = string.Empty;
 
-        [Display(
-            Name = "ConfirmPassword",
-            ResourceType = typeof(Resource)
-        )]
+        [Display(Name = "ConfirmPassword", ResourceType = typeof(Resource))]
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Les mots de passe ne correspondent pas.")]
         public string ConfirmPassword { get; set; } = string.Empty;

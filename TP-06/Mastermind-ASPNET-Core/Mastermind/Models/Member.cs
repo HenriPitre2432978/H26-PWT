@@ -43,27 +43,11 @@ namespace Mastermind.Models
 
         [NotMapped]
         public IFormFile? ImageFile { get; set; }
-        public Member()
-        {
-        }
 
-        public Member(
-            int id,
-            string fullname,
-            string email,
-            string username,
-            string password,
-            string role,
-            string imagePath
-        )
-        {
-            Id = id;
-            FullName = fullname;
-            Email = email;
-            Username = username;
-            Password = password;
-            Role = role;
-            ImagePath = imagePath;
-        }
+        // Required for model binding
+        public Member() { }
+
+        public Member(int id, string fullname, string email, string username, string password, string role, string imagePath)
+            => (Id, FullName, Email, Username, Password, Role, ImagePath) = (id, fullname, email, username, password, role, imagePath);
     }
 }

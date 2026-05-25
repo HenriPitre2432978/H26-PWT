@@ -23,7 +23,8 @@
 
             <div class="form-section">
 
-                <form asp-action="EditProfile" enctype="multipart/form-data">
+                <form asp-action="EditProfile"
+                      enctype="multipart/form-data">
 
                     @Html.AntiForgeryToken()
 
@@ -101,25 +102,32 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="form-label">Avatar</label>
-                        <div class="form-group mb-3">
 
-                            @if (@Url.Action("GetImage", "Client", new { id = Model.Id }) != null)
-                            {
-                                <div class="mb-2">
-                                    <img src="@Url.Action("GetImage", "Client", new { id = Model.Id })"
-                                         class="img-thumbnail"
-                                         style="max-width:150px;" />
-                                </div>
-                            }
-                            else
-                            {
-                                <p class="text-muted">No avatar uploaded</p>
-                            }
+                        <label class="form-label">
+                            Avatar
+                        </label>
 
-                        </div>
+                        @if (Url.Action("GetImage", "Client", new { id = Model.Id }) != null)
+                        {
+                            <div class="mb-2">
 
-                        <input asp-for="ImageFile" type="file" class="form-control" />
+                                <img src="@Url.Action("GetImage", "Client", new { id = Model.Id })"
+                                     class="img-thumbnail"
+                                     style="max-width:150px;" />
+
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-muted">
+                                No avatar uploaded
+                            </p>
+                        }
+
+                        <input asp-for="ImageFile"
+                               type="file"
+                               class="form-control" />
+
                     </div>
 
                     <div class="text-center">
@@ -128,17 +136,13 @@
                                 class="btn btn-primary">
 
                             @Resource.Edit
+
                         </button>
-
                     </div>
-
                 </form>
-
             </div>
-
         </div>
     </div>
-
 </div>
 
 @section Scripts

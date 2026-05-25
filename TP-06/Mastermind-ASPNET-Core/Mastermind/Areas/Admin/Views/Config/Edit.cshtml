@@ -16,71 +16,29 @@
             </div>
 
             <div class="form-section">
-
                 <form asp-action="Edit">
-
                     <div class="form-horizontal">
-
                         <hr />
+                        <!-- Configuration fields -->
+                        @foreach (var field in new[] { nameof(Model.NbColors), nameof(Model.NbPositions), nameof(Model.NbAttempts) })
+                        {
+                            <div class="form-group row">
 
-                        <div class="form-group row">
+                                <label asp-for="@field" class="col-form-label col-md-6"></label>
 
-                            <label asp-for="NbColors"
-                                   class="col-form-label col-md-6"></label>
+                                <div class="col-md-6">
 
-                            <div class="col-md-6">
+                                    <input asp-for="@field" class="form-control" />
 
-                                <input asp-for="NbColors"
-                                       class="form-control" />
-
-                                <span asp-validation-for="NbColors"
-                                      class="text-danger"></span>
-
+                                    <span asp-validation-for="@field" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-
-                            <label asp-for="NbPositions"
-                                   class="col-form-label col-md-6"></label>
-
-                            <div class="col-md-6">
-
-                                <input asp-for="NbPositions"
-                                       class="form-control" />
-
-                                <span asp-validation-for="NbPositions"
-                                      class="text-danger"></span>
-
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-
-                            <label asp-for="NbAttempts"
-                                   class="col-form-label col-md-6"></label>
-
-                            <div class="col-md-6">
-
-                                <input asp-for="NbAttempts"
-                                       class="form-control" />
-
-                                <span asp-validation-for="NbAttempts"
-                                      class="text-danger"></span>
-
-                            </div>
-                        </div>
-
+                        }
                         <hr />
-
                     </div>
 
                     <div class="text-center">
-
-                        <input type="submit"
-                               value="@Resource.Edit"
-                               class="btn btn-primary" />
-
+                        <input type="submit" value="@Resource.Edit" class="btn btn-primary" />
                     </div>
 
                 </form>

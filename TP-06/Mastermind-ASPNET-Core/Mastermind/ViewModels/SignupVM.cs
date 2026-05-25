@@ -6,15 +6,11 @@ namespace Mastermind.ViewModels
 {
     public class SignupVM
     {
-
         [Required(
             ErrorMessageResourceName = "FullNameRequired",
             ErrorMessageResourceType = typeof(Resource)
         )]
-        [Display(
-            Name = "FullName",
-            ResourceType = typeof(Resource)
-        )]
+        [Display(Name = "FullName", ResourceType = typeof(Resource))]
         [StringLength(20)]
         public string FullName { get; set; } = string.Empty;
 
@@ -30,17 +26,14 @@ namespace Mastermind.ViewModels
             ErrorMessageResourceName = "UsernameRequired",
             ErrorMessageResourceType = typeof(Resource)
         )]
-        [Display(
-            Name = "Username",
-            ResourceType = typeof(Resource)
-        )]
+        [Display(Name = "Username", ResourceType = typeof(Resource))]
         [StringLength(20)]
         [Remote(
-    action: "VerifySignupUsername",
-    controller: "Client",
-    HttpMethod = "Get",
-    ErrorMessage = "Ce nom d'utilisateur existe déjà."
-)]
+            action: "VerifySignupUsername",
+            controller: "Client",
+            HttpMethod = "Get",
+            ErrorMessage = "Ce nom d'utilisateur existe déjà."
+        )]
         public string Username { get; set; } = string.Empty;
 
         [Required(

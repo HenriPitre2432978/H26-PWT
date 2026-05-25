@@ -5,13 +5,11 @@ namespace Mastermind.DataAccessLayer.Factories
 {
     public class ConfigFactory
     {
-        private Config CreateFromReader(MySqlDataReader reader)
+        private Config CreateFromReader(MySqlDataReader reader) => new()
         {
-            string key = reader["key"].ToString() ?? string.Empty;
-            string value = reader["value"].ToString() ?? string.Empty;
-
-            return new Config() { Key = key, Value = value };
-        }
+            Key = reader["key"].ToString() ?? string.Empty,
+            Value = reader["value"].ToString() ?? string.Empty
+        };
 
         public Dictionary<string, Config> GetAll()
         {
@@ -29,9 +27,11 @@ namespace Mastermind.DataAccessLayer.Factories
                 cmd.CommandText = "SELECT * FROM tp6_config";
 
                 reader = cmd.ExecuteReader();
+
                 while (reader.Read())
                 {
                     Config config = CreateFromReader(reader);
+
                     configByKey.Add(config.Key, config);
                 }
             }
@@ -57,14 +57,16 @@ namespace Mastermind.DataAccessLayer.Factories
                 cnn.Open();
 
                 MySqlCommand cmd = cnn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM tp6_config WHERE `key` = @key";
+
+                cmd.CommandText =
+                    "SELECT * FROM tp6_config WHERE `key` = @key";
+
                 cmd.Parameters.Add(new MySqlParameter("@key", key));
 
                 reader = cmd.ExecuteReader();
+
                 if (reader.Read())
-                {
                     config = CreateFromReader(reader);
-                }
             }
             finally
             {
@@ -77,10 +79,9 @@ namespace Mastermind.DataAccessLayer.Factories
 
         public void Save(List<Config> configs)
         {
+            // Save each config entry individually
             foreach (Config config in configs)
-            {
                 Save(config);
-            }
         }
 
         public void Save(Config config)
@@ -93,7 +94,9 @@ namespace Mastermind.DataAccessLayer.Factories
                 mySqlCnn.Open();
 
                 MySqlCommand mySqlCmd = mySqlCnn.CreateCommand();
-                mySqlCmd.CommandText = "UPDATE tp6_config SET `value`=@value WHERE `key`=@key";
+
+                mySqlCmd.CommandText =
+                    "UPDATE tp6_config SET `value`=@value WHERE `key`=@key";
 
                 mySqlCmd.Parameters.AddWithValue("@key", config.Key);
                 mySqlCmd.Parameters.AddWithValue("@value", config.Value);

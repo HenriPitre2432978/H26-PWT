@@ -8,7 +8,6 @@ using System.Text.Json;
 
 namespace Mastermind.Controllers
 {
-
     [Authorize(Roles = Member.ROLE_STANDARD + "," + Member.ROLE_ADMIN)]
     public class GameController : Controller
     {
@@ -19,6 +18,7 @@ namespace Mastermind.Controllers
             Game? game = null;
 
             string? currentJsonGame = HttpContext.Session.GetString(SESSION_GAME_NAME);
+
             if (currentJsonGame != null)
                 game = JsonSerializer.Deserialize<Game>(currentJsonGame);
 
@@ -31,7 +31,11 @@ namespace Mastermind.Controllers
                 int.TryParse(configByKey[Config.NB_ATTEMPTS].Value, out int nbAttempts);
 
                 game = new(nbColors, nbPositions, nbAttempts);
-                HttpContext.Session.SetString(SESSION_GAME_NAME, JsonSerializer.Serialize(game));
+
+                HttpContext.Session.SetString(
+                    SESSION_GAME_NAME,
+                    JsonSerializer.Serialize(game)
+                );
             }
 
             return game;
@@ -43,28 +47,15 @@ namespace Mastermind.Controllers
 
             DAL dal = new();
 
-            string? username =
-                User.Identity?.Name;
+            string? username = User.Identity?.Name;
 
-            MemberStats? stats = null;
+            MemberStats? stats = !string.IsNullOrWhiteSpace(username)
+                ? dal.MemberFact.GetByUsername(username) is Member member
+                    ? dal.MemberStatsFact.GetByMemberId(member.Id)
+                    : null
+                : null;
 
-            if (!string.IsNullOrWhiteSpace(username))
-            {
-                Member? member =
-                    dal.MemberFact.GetByUsername(username);
-
-                if (member != null)
-                {
-                    stats =
-                        dal.MemberStatsFact
-                            .GetByMemberId(member.Id);
-                }
-            }
-
-            GameVM viewModel =
-                new(game, stats);
-
-            return View(viewModel);
+            return View(new GameVM(game, stats));
         }
 
         [HttpPost]
@@ -73,7 +64,9 @@ namespace Mastermind.Controllers
         {
             Game? game = null;
 
-            string? currentJsonGame = HttpContext.Session.GetString("CurrentGame");
+            string? currentJsonGame =
+                HttpContext.Session.GetString(SESSION_GAME_NAME);
+
             if (currentJsonGame != null)
             {
                 game = JsonSerializer.Deserialize<Game>(currentJsonGame);
@@ -82,61 +75,40 @@ namespace Mastermind.Controllers
                 {
                     PlayerRow playerRow = new();
 
-                    for (
-                        int position = 1;
-                        position <= game.NbPositions;
-                        position++
-                    )
+                    // Build player's row from submitted form values
+                    for (int position = 1; position <= game.NbPositions; position++)
                     {
                         int.TryParse(
-                            collection["color-index-" + position],
+                            collection[$"color-index-{position}"],
                             out int color
                         );
 
-                        playerRow.Pawns.Add(
-                            new Pawn { Color = color }
-                        );
+                        playerRow.Pawns.Add(new Pawn { Color = color });
                     }
 
                     game.Validate(playerRow);
 
-                    if (
-                        game.State != Game.GameState.Running
-                        && !game.StatisticsSaved
-                    )
+                    // Save stats only once when game ends
+                    if (game.State != Game.GameState.Running && !game.StatisticsSaved)
                     {
-                        string? username =
-                            User.Identity?.Name;
+                        string? username = User.Identity?.Name;
 
                         if (!string.IsNullOrWhiteSpace(username))
                         {
                             DAL dal = new();
 
                             Member? member =
-                                dal.MemberFact
-                                    .GetByUsername(username);
+                                dal.MemberFact.GetByUsername(username);
 
                             if (member != null)
                             {
-                                if (
-                                    game.State ==
-                                    Game.GameState.PlayerWin
-                                )
-                                {
+                                if (game.State == Game.GameState.PlayerWin)
                                     dal.MemberStatsFact.RegisterWin(
                                         member.Id,
                                         game.PlayerRows.Count
                                     );
-                                }
-                                else if (
-                                    game.State ==
-                                    Game.GameState.ComputerWin
-                                )
-                                {
-                                    dal.MemberStatsFact.RegisterLoss(
-                                        member.Id
-                                    );
-                                }
+                                else if (game.State == Game.GameState.ComputerWin)
+                                    dal.MemberStatsFact.RegisterLoss(member.Id);
 
                                 game.StatisticsSaved = true;
                             }
@@ -144,7 +116,7 @@ namespace Mastermind.Controllers
                     }
 
                     HttpContext.Session.SetString(
-                        "CurrentGame",
+                        SESSION_GAME_NAME,
                         JsonSerializer.Serialize(game)
                     );
                 }
@@ -154,6 +126,7 @@ namespace Mastermind.Controllers
 
             return PartialView("PartialGame", game);
         }
+
         public IActionResult Replay()
         {
             HttpContext.Session.Remove(SESSION_GAME_NAME);

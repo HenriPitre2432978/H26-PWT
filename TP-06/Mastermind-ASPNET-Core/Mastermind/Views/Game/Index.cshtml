@@ -54,14 +54,14 @@
             var data = google.visualization.arrayToDataTable([
                 ['@Resource.Result', '@Resource.Quantity'],
                 ['@Resource.GamesWon',@(Model.Stats?.GamesWon ?? 0)],
-                ['@Resource.GamesLost', @(Model.Stats?.GamesLost ?? 0)],
+                ['@Resource.GamesLost', @(Model.Stats?.GamesLost ?? 0)]
             ]);
 
             var options = {
                 fontSize: 14,
                 is3D: true,
                 responsive: true,
-                slices: [{ color: 'blue', offset: 0.1 }, { color: 'orange', offset: 0.1 }, { color: 'silver' }],
+                slices: [{ color: 'blue', offset: 0.1 }, { color: 'orange', offset: 0.1 }],
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));

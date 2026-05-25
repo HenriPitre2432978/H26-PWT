@@ -1,35 +1,59 @@
 ﻿@model HomeVM
+
 @{
     ViewData["Title"] = Resource.HomeTitle;
 }
 
 <div id="home-page">
+
     <div class="row mb-4">
         <div class="col-12">
-            <img src="~/img/mastermind-banner.png" alt="Mastermind" class="img-fluid" />
+
+            <img src="~/img/mastermind-banner.png"
+                 alt="Mastermind"
+                 class="img-fluid" />
+
         </div>
     </div>
+
     <div class="row">
         <div class="col-12">
+
             <a id="rules"></a>
+
             <h3>@Resource.HomeGoalTitle</h3>
+
             <p>
-                @string.Format(Resource.MastermindGoalText,
-                Model.NbColors,
-                                Model.NbAttempts)
+                @string.Format(
+                Resource.MastermindGoalText,
+                                Model.NbColors,
+                                Model.NbAttempts
+                                )
             </p>
+
             <h3>@Resource.HomeStartTitle</h3>
+
             <p>
                 @string.Format(
                                 Resource.MastermindPlacementText,
                                 Model.NbPositions
                                 )
             </p>
+
             <p>
-                <a asp-controller="Game" asp-action="Index" class="btn btn-primary">@Resource.PlayGame</a>
+
+                <a asp-controller="Game"
+                   asp-action="Index"
+                   class="btn btn-primary">
+
+                    @Resource.PlayGame
+
+                </a>
+
             </p>
 
             <h3>@Resource.IncorrectCombinationTitle</h3>
+
             <p>
                 @Resource.MastermindMarkersText
             </p>
@@ -42,19 +66,28 @@
             </p>
 
             <h3>@Resource.CorrectCombinationTitle</h3>
+
             <p>
                 @Resource.MastermindCorrectText
             </p>
 
             <h3>@Resource.TipsTitle</h3>
+
             <p>
                 @Resource.MastermindTipsText
             </p>
 
             <p class="rules-link">
+
                 @Resource.RegulationsInspired
-                <a href="https://www.regles-de-jeux.com/regle-du-mastermind/">https://www.regles-de-jeux.com/regle-du-mastermind/</a>
+
+                <a href="https://www.regles-de-jeux.com/regle-du-mastermind/">
+                    https://www.regles-de-jeux.com/regle-du-mastermind/
+                </a>
+
             </p>
+
         </div>
     </div>
+
 </div>

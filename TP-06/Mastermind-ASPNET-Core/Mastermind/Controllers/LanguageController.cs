@@ -20,13 +20,9 @@ namespace Mastermind.Controllers
             }
 
             if (!string.IsNullOrWhiteSpace(returnurl) && Url.IsLocalUrl(returnurl))
-            {
                 return LocalRedirect(returnurl);
-            }
             else
-            {
                 return RedirectToAction("Index", "Home");
-            }
         }
     }
 }

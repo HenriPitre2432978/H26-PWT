@@ -6,18 +6,12 @@
 
         public int NbBlackMarks
         {
-            get
-            {
-                return Pawns.Count(pawn => pawn.Mark == Pawn.MarkState.Black);
-            }
+            get => Pawns.Count(pawn => pawn.Mark == Pawn.MarkState.Black);
         }
 
         public int NbWhiteMarks
         {
-            get
-            {
-                return Pawns.Count(pawn => pawn.Mark == Pawn.MarkState.White);
-            }
+            get => Pawns.Count(pawn => pawn.Mark == Pawn.MarkState.White);
         }
 
         public PlayerRow() { }

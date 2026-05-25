@@ -15,7 +15,6 @@ namespace Mastermind.DataAccessLayer
             get
             {
                 _configFact ??= new ConfigFactory();
-
                 return _configFact;
             }
         }
